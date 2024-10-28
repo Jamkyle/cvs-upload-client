@@ -1,4 +1,4 @@
 import "./styles.scss";
 export default function SpinLoader() {
-  return <span className="loader"></span>;
+  return <span className="loader" aria-label='loading'></span>;
 }

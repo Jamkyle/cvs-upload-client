@@ -1,6 +1,5 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
-import Progressbar from ".";
+import Progressbar from "."; // Adjust the import path as necessary
 
 describe("Progressbar Component", () => {
   it("renders correctly with progress", () => {

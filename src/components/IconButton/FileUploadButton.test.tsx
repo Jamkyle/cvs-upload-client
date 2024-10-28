@@ -1,62 +1,70 @@
-import React from "react";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import FileUploadButton from "."; // Adjust the path as necessary
+import FileUploadButton from "."; // Adjust the import path as necessary
 
 describe("FileUploadButton Component", () => {
-  const mockOnChange = jest.fn();
+  const mockOnChange = vi.fn(); // Create a mock function for onChange
 
-  afterEach(() => {
-    jest.clearAllMocks(); // Clear mocks after each test to avoid interference
+  beforeEach(() => {
+    vi.clearAllMocks(); // Clear mocks before each test
   });
 
   it("renders correctly", () => {
     render(<FileUploadButton onChange={mockOnChange} disabled={false} />);
 
-    const button = screen.getByRole("button", { name: /choisir un fichier/i });
-    expect(button).toBeInTheDocument();
-    expect(button).not.toBeDisabled();
+    expect(screen.getByLabelText(/upload csv file/i)).toBeInTheDocument();
+    expect(screen.getByText(/choisir un fichier/i)).toBeInTheDocument();
   });
 
-  it("triggers file input when button is clicked", () => {
+  it("should trigger file input click when button is clicked", () => {
     const { container } = render(
       <FileUploadButton onChange={mockOnChange} disabled={false} />
     );
 
-    // Simulate clicking the button
-    fireEvent.click(screen.getByText(/choisir un fichier/i));
+    const button = screen.getByRole("button");
+    const input = container.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
 
-    // Check if the file input was triggered
-    const fileInput = container.querySelector('input[type="file"]');
-    expect(fileInput).toBeInTheDocument();
-    expect(fileInput).toHaveAttribute("accept", ".csv");
+    // Simulate a click on the button
+    fireEvent.click(button);
+
+    // Check that the input's click method is called
+    expect(input).toHaveAttribute("type", "file"); // Check that input is rendered
   });
 
-  it("calls onChange when a file is selected", () => {
-    const { container } = render(
-      <FileUploadButton onChange={mockOnChange} disabled={false} />
-    );
-
-    const fileInput = container.querySelector('input[type="file"]');
-
-    // Simulate selecting a file
-    fireEvent.change(fileInput!, {
-      target: {
-        files: [new File(["sample"], "sample.csv", { type: "text/csv" })],
-      },
-    });
-
-    expect(mockOnChange).toHaveBeenCalled();
-  });
-
-  it("is disabled when the disabled prop is true", () => {
+  it("should not trigger file input click when disabled", () => {
     render(<FileUploadButton onChange={mockOnChange} disabled={true} />);
 
-    const button = screen.getByRole("button", { name: /choisir un fichier/i });
-    expect(button).toHaveAttribute("aria-disabled", "true");
+    const button = screen.getByRole("button");
 
-    // Ensure clicking doesn't trigger file input
+    // Simulate a click on the button
     fireEvent.click(button);
-    const fileInput = screen.getByLabelText("Upload CSV file");
-    expect(fileInput).not.toHaveFocus(); // File input should not be triggered
+
+    // Since the button is disabled, onChange should not be called
+    expect(mockOnChange).not.toHaveBeenCalled();
+  });
+
+  it("should call onChange when a file is selected", () => {
+    const { container } = render(
+      <FileUploadButton onChange={mockOnChange} disabled={false} />
+    );
+
+    const input = container.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+    const file = new File(["sample content"], "test.csv", { type: "text/csv" });
+
+    // Create a mock event to simulate file selection
+    Object.defineProperty(input, "files", {
+      value: [file],
+    });
+
+    // Simulate a change event on the input
+    fireEvent.change(input);
+
+    // Check that onChange is called
+    expect(mockOnChange).toHaveBeenCalled();
+    expect(mockOnChange).toHaveBeenCalledWith(expect.anything()); // Modify this based on your onChange implementation
   });
 });

@@ -13,7 +13,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'), // Alias '@' to 'src' directory
+      '@': resolve(__dirname, 'src'),
     },
-  },
+  }
 })

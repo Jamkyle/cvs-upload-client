@@ -11,6 +11,7 @@ export default defineConfig({
         'plugin:react/recommended',             // Use recommended React rules
         'plugin:@typescript-eslint/recommended', // Use recommended TypeScript rules
         'plugin:prettier/recommended',          // Use Prettier rules
+        'plugin:vitest/recommended'
     ],
     parser: '@typescript-eslint/parser',       // Specify ESLint parser for TypeScript
     parserOptions: {

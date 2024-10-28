@@ -1,4 +1,3 @@
-import React from "react";
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import "./styles.scss"; // Importez le fichier Sass pour les styles
 import { IconButtonProps } from "./types";

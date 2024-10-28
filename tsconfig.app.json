@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
@@ -24,7 +24,14 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["node", "jest", "@testing-library/jest-dom", "@testing-library/dom"]
+    "types": [
+      "node",
+      "jest",
+      "vitest",
+      "@testing-library/jest-dom",
+      "@testing-library/dom"
+    ]
   },
-  "include": ["src"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
