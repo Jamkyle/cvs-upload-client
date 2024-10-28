@@ -41,12 +41,15 @@ Before you begin, ensure you have met the following requirements:
 4. **Set up your environment variables**:
 
    Create a `.env` file in the root of the project directory and add your API URL. For example:
-
+   
    ```plaintext
-   VITE_API_URL=http://your-api-url.com
+   VITE_API_URL=http://localhost:5000
    ```
-
-   Make sure to replace `http://your-api-url.com` with the actual API endpoint you will be using.
+   or
+   ```
+   echo "VITE_API_URL=[http://localhost:5000]" > .env
+   ```
+   Make sure to replace `http://localhost:5000` with the actual API endpoint you will be using.
 
 ## Running the Application
 
