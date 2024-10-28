@@ -1,0 +1,41 @@
+$file-upload-bg-color: #4caf50;
+$file-upload-hover-color: darken($file-upload-bg-color, 10%);
+$file-upload-text-color: white;
+$file-upload-border-radius: 5px;
+$file-upload-font-size: 18px;
+
+.file-upload-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $file-upload-bg-color;
+  color: $file-upload-text-color;
+  border-radius: $file-upload-border-radius;
+  padding: 15px 25px;
+  cursor: pointer;
+  position: relative;
+  font-size: $file-upload-font-size;
+  text-align: center;
+  margin: 20px 0; // Espacement
+  text-decoration: none;
+
+  input[type="file"] {
+    display: none; // Cacher le champ input
+  }
+
+  .icon {
+    font-size: 30px; // Taille de l'icône
+    margin-right: 10px; // Espacement entre l'icône et le texte
+  }
+
+  &:hover {
+    background-color: $file-upload-hover-color;
+  }
+
+  &.disabled {
+    &:hover {
+      background-color: $file-upload-bg-color;
+    }
+    opacity: 0.7;
+  }
+}
